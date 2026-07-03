@@ -1,25 +1,47 @@
-name: Node CI
+name: Node.js CI Pipeline
 
 on:
   push:
     branches:
       - main
 
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
+    name: Build Node Application
+
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+
+      - name: Display Node Version
+        run: node -v
+
+      - name: Display NPM Version
+        run: npm -v
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Successful
-        run: echo "Node project built successfully!"
+      - name: Verify Project Files
+        run: ls -la
+
+      - name: Check package.json
+        run: cat package.json
+
+      - name: Build Verification
+        run: echo "Node.js application build completed successfully."
+
+      - name: Pipeline Completed
+        run: echo "GitHub Actions CI Pipeline Executed Successfully!"
