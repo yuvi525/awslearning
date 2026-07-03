@@ -1,0 +1,6 @@
+services:
+  myapp:
+    image: myapp:v1
+    container_name: mynodeapp-compose
+    ports:
+      - "3002:3000"
